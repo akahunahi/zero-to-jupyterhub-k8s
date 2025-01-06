@@ -7,6 +7,8 @@ init.py:
 install:
 	kubectl create ns jupyter || true
 	helm upgrade test jupyterhub -install -n jupyter -f dev-config.yaml -f dev-config-arm.yaml -f chartpress.yaml
+install.test:
+	curl -Ls "http://$$(minikube ip):30080/" | grep '<html' && echo 'Success' 
 reset:
 	kubectl delete ns jupyter
 	install
